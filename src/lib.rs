@@ -6,9 +6,9 @@ pub struct RsRequest {
     pub url: String,
     pub require_add: bool,
     pub intermediate: bool,
-    pub multi: bool,
     pub cookies: Option<String>,
-    pub headers: Option<Vec<(String, String)>>
+    pub headers: Option<Vec<(String, String)>>,
+    pub files: Option<Vec<RsRequestFiles>>
 }
 
 
