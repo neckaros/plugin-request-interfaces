@@ -7,6 +7,7 @@ pub struct RsRequest {
     pub url: String,
     pub mime: Option<String>,
     pub size: Option<usize>,
+    pub filename: Option<String>,
     #[serde(default)]
     pub require_add: bool,
     #[serde(default)]
@@ -22,6 +23,7 @@ pub struct RsRequest {
 pub struct RsRequestFiles {
     pub name: String,
     pub size: usize,
+    pub mime: Option<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default)]
