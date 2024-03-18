@@ -6,6 +6,7 @@ use serde::{Deserialize, Serialize};
 pub struct RsRequest {
     pub url: String,
     pub mime: Option<String>,
+    pub size: Option<usize>,
     #[serde(default)]
     pub require_add: bool,
     #[serde(default)]
