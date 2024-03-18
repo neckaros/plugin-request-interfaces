@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 #[serde(rename_all = "snake_case")] 
 pub struct RsRequest {
     pub url: String,
+    pub mime: Option<String>,
     #[serde(default)]
     pub require_add: bool,
     #[serde(default)]
