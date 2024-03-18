@@ -26,5 +26,5 @@ pub struct RsRequestFiles {
 #[serde(rename_all = "snake_case")] 
 pub struct RsRequestWithCredential {
     pub request: RsRequest,
-    pub credential: PluginCredential
+    pub credential: Option<PluginCredential>
 }
