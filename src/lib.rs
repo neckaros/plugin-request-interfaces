@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 pub struct RsRequest {
     pub url: String,
     pub mime: Option<String>,
-    pub size: Option<usize>,
+    pub size: Option<u64>,
     pub filename: Option<String>,
     #[serde(default)]
     pub require_add: bool,
@@ -22,7 +22,7 @@ pub struct RsRequest {
 #[serde(rename_all = "snake_case")] 
 pub struct RsRequestFiles {
     pub name: String,
-    pub size: usize,
+    pub size: u64,
     pub mime: Option<String>,
 }
 
