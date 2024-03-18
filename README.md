@@ -1,0 +1,1 @@
+Plugin interfaces to transform an url to a request
