@@ -93,7 +93,7 @@ pub struct RsRequest {
     pub status: RsRequestStatus,
     pub headers: Option<Vec<(String, String)>>,
     /// some downloader la YTDL require detailed cookies. You can create Header equivalent  with `headers` fn on the vector
-    pub cookies: Vec<RsCookie>,
+    pub cookies: Option<Vec<RsCookie>>,
     /// If must choose between multiple files. Recall plugin with a `selected_file` containing one of the name in this list to get link
     pub files: Option<Vec<RsRequestFiles>>,
     /// one of the `files` selected for download
