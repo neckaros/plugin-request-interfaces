@@ -92,6 +92,8 @@ pub struct RsRequest {
     #[serde(default)]
     pub status: RsRequestStatus,
     pub headers: Option<Vec<(String, String)>>,
+    /// some downloader la YTDL require detailed cookies. You can create Header equivalent  with `headers` fn on the vector
+    pub cookies: Vec<RsCookie>,
     /// If must choose between multiple files. Recall plugin with a `selected_file` containing one of the name in this list to get link
     pub files: Option<Vec<RsRequestFiles>>,
     /// one of the `files` selected for download
@@ -117,6 +119,8 @@ pub enum RsRequestStatus {
     /// No plugin yet processed this request
     #[default]
 	Unprocessed,
+    ///if remain in this state after all plugin it will go through YtDl to try to extract medias
+    NeedParsing,
     /// Link can be processed but first need to be added to the service and downloaded
     ///   -First call this plugin again with `add` method
     ///   -Check status and once ready call `process` again
