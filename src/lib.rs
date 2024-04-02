@@ -83,8 +83,9 @@ impl RsCookies for Vec<RsCookie> {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default)]
-#[serde(rename_all = "snake_case")] 
+#[serde(rename_all = "camelCase")] 
 pub struct RsRequest {
+    pub upload_id: Option<String>,
     pub url: String,
     pub mime: Option<String>,
     pub size: Option<u64>,
@@ -147,7 +148,7 @@ pub enum RsRequestStatus {
 
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default)]
-#[serde(rename_all = "snake_case")] 
+#[serde(rename_all = "camelCase")] 
 pub struct RsRequestFiles {
     pub name: String,
     pub size: u64,
@@ -155,7 +156,7 @@ pub struct RsRequestFiles {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default)]
-#[serde(rename_all = "snake_case")] 
+#[serde(rename_all = "camelCase")] 
 pub struct RsRequestWithCredential {
     pub request: RsRequest,
     pub credential: Option<PluginCredential>
