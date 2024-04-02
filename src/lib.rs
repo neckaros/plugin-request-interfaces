@@ -91,13 +91,22 @@ pub struct RsRequest {
     pub filename: Option<String>,
     #[serde(default)]
     pub status: RsRequestStatus,
+    pub referer: String,
     pub headers: Option<Vec<(String, String)>>,
-    /// some downloader la YTDL require detailed cookies. You can create Header equivalent  with `headers` fn on the vector
+    /// some downloader like YTDL require detailed cookies. You can create Header equivalent  with `headers` fn on the vector
     pub cookies: Option<Vec<RsCookie>>,
     /// If must choose between multiple files. Recall plugin with a `selected_file` containing one of the name in this list to get link
     pub files: Option<Vec<RsRequestFiles>>,
     /// one of the `files` selected for download
-    pub selected_file: Option<String>
+    pub selected_file: Option<String>,
+
+    pub description: Option<String>,
+    pub tags: Option<Vec<String>>,
+    pub people: Option<Vec<String>>,
+    pub albums: Option<Vec<String>>,
+    pub season: Option<u32>,
+    pub episode: Option<u32>,
+    pub language: Option<String>,
 }
 
 impl RsRequest {
