@@ -91,7 +91,7 @@ pub struct RsRequest {
     pub filename: Option<String>,
     #[serde(default)]
     pub status: RsRequestStatus,
-    pub referer: String,
+    pub referer: Option<String>,
     pub headers: Option<Vec<(String, String)>>,
     /// some downloader like YTDL require detailed cookies. You can create Header equivalent  with `headers` fn on the vector
     pub cookies: Option<Vec<RsCookie>>,
