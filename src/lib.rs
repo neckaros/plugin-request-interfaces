@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use rs_plugin_common_interfaces::PluginCredential;
+pub use rs_plugin_common_interfaces::PluginCredential;
 use serde::{Deserialize, Serialize};
 use strum_macros::EnumString;
 
