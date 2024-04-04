@@ -1,6 +1,7 @@
 use std::str::FromStr;
 
 pub use rs_plugin_common_interfaces::PluginCredential;
+use rs_plugin_common_interfaces::{RsAudio, RsResolution};
 use serde::{Deserialize, Serialize};
 use strum_macros::EnumString;
 
@@ -87,27 +88,50 @@ impl RsCookies for Vec<RsCookie> {
 pub struct RsRequest {
     pub upload_id: Option<String>,
     pub url: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub mime: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub size: Option<u64>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub filename: Option<String>,
     #[serde(default)]
     pub status: RsRequestStatus,
+    
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub referer: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub headers: Option<Vec<(String, String)>>,
     /// some downloader like YTDL require detailed cookies. You can create Header equivalent  with `headers` fn on the vector
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub cookies: Option<Vec<RsCookie>>,
     /// If must choose between multiple files. Recall plugin with a `selected_file` containing one of the name in this list to get link
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub files: Option<Vec<RsRequestFiles>>,
     /// one of the `files` selected for download
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub selected_file: Option<String>,
 
+    
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub tags: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub people: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub albums: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub season: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub episode: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
     pub language: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resolution: Option<RsResolution>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audio: Option<RsAudio>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub quality: Option<u64>,
 }
 
 impl RsRequest {
