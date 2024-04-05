@@ -114,7 +114,7 @@ checksum = "d231b230927b5e4ad203db57bbcbee2802f6bce620b1e4a9024a07d94e2907ec"
 
 [[package]]
 name = "plugin-request-interfaces"
-version = "0.10.0"
+version = "0.11.0"
 dependencies = [
  "regex",
  "rs-plugin-common-interfaces",
@@ -174,9 +174,9 @@ checksum = "adad44e29e4c806119491a7f06f03de4d1af22c3a680dd47f1e6e179439d1f56"
 
 [[package]]
 name = "rs-plugin-common-interfaces"
-version = "0.7.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "27e29d6854acf9954ee75c05c4875ee533ca6eb6b7f7d0d803940b12a7c4b0b1"
+checksum = "fb57a7889b1fa8a92dfe4561af66a5d0e5a666c9bf2635f74e56de953d713006"
 dependencies = [
  "serde",
  "serde_json",
