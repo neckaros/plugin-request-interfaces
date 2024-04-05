@@ -1,7 +1,8 @@
 use std::str::FromStr;
 
+use regex::Regex;
 pub use rs_plugin_common_interfaces::PluginCredential;
-use rs_plugin_common_interfaces::{RsAudio, RsResolution};
+use rs_plugin_common_interfaces::{RsAudio, RsResolution, RsVideoCodec};
 use serde::{Deserialize, Serialize};
 use strum_macros::EnumString;
 
@@ -129,7 +130,9 @@ pub struct RsRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub resolution: Option<RsResolution>,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub audio: Option<RsAudio>,
+    pub videocodec: Option<RsVideoCodec>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub audio: Option<Vec<RsAudio>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub quality: Option<u64>,
 }
@@ -143,6 +146,33 @@ impl RsRequest {
         };
         existing.push(cookies.headers());
         self.headers = Some(existing);
+    }
+
+    pub fn parse_filename(&mut self) {
+        if let Some(filename) = &self.filename {
+            let resolution = RsResolution::from_filename(filename);
+            if resolution != RsResolution::Unknown {
+                self.resolution = Some(resolution);
+            }
+            let videocodec = RsVideoCodec::from_filename(filename);
+            if videocodec != RsVideoCodec::Unknown {
+                self.videocodec = Some(videocodec);
+            }
+            let audio = RsAudio::list_from_filename(filename);
+            if audio.len() > 0 {
+                self.audio = Some(audio);
+            }
+
+            let re = Regex::new(r"(?i)s(\d+)e(\d+)").unwrap();
+            match re.captures(filename) {
+                Some(caps) => {
+                    self.season = caps[1].parse::<u32>().ok();
+                    self.episode = caps[2].parse::<u32>().ok();
+                }
+                None => (),
+            }
+        }
+ 
     }
 }
 
@@ -239,6 +269,18 @@ mod tests {
         let parsed = vec![RsCookie::from_str(".twitter.com;true;/;true;1726506480.700665;ads_prefs;\"HBESAAA=\"")?, RsCookie::from_str(".twitter.com;false;/;true;1722364794.437907;kdt;w1j")?];
         println!("header: {}", parsed.header_value());
         assert!(parsed.header_value() == "ads_prefs=\"HBESAAA=\"; kdt=w1j");
+        Ok(())
+    }
+
+    #[test]
+    fn test_parse() -> Result<(), RequestError> {
+        let mut req = RsRequest { filename: Some("Shogun.2024.S01E01.Anjin.1080p.VOSTFR.DSNP.WEB-DL.DDP5.1.H.264-NTb".to_owned()), ..Default::default()};
+        req.parse_filename();
+        assert_eq!(req.season.unwrap(), 1);
+        assert_eq!(req.episode.unwrap(), 1);
+        assert_eq!(req.resolution.unwrap(), RsResolution::FullHD);
+        assert_eq!(req.videocodec.unwrap(), RsVideoCodec::H264);
+        assert_eq!(req.audio.unwrap().len(), 1);
         Ok(())
     }
 }
