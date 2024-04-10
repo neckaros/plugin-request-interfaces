@@ -211,9 +211,12 @@ pub struct RsRequestFiles {
 
 #[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Default)]
 #[serde(rename_all = "camelCase")] 
-pub struct RsRequestWithCredential {
+pub struct RsRequestPluginRequest {
     pub request: RsRequest,
-    pub credential: Option<PluginCredential>
+    pub credential: Option<PluginCredential>,
+    ///Plugin should only send back request that are usable long term and can be saved to the DB for later use
+    #[serde(default)]
+    pub savable: bool
 }
 
 
